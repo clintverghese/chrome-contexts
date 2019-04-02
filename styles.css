@@ -1,0 +1,10 @@
+.container {
+    width: 120px;
+    height: Auto;
+}
+
+.container button {
+    height: 30px;
+    width: Auto;
+    outline: none;
+  }

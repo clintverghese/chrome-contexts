@@ -10,6 +10,8 @@ saveContext.onclick = function(element) {
             return {url: t.url};
         });
         console.log(strippedTabs);
+        console.log(strippedTabs[1]);
+
         chrome.storage.sync.set({[contextName]: strippedTabs}, function() {
             console.log('saved context  ' + [contextName]);
             updateSavedContexts();
@@ -41,6 +43,7 @@ function updateSavedContexts()
         var ul = document.getElementById("dynamic-list");
         ul.innerHTML = "";
         for(var i=0; i<savedContexts.length; i++) {
+            // console.log(savedContexts[i]);
             var li = document.createElement("li");
             li.setAttribute('id',savedContexts[i]);
             li.appendChild(document.createTextNode(savedContexts[i]));
@@ -56,6 +59,7 @@ function getSavedContextsFromSync(callback)
     chrome.storage.sync.get(function(value) {
         contexts = Object.keys(value);
         console.log("Contexts in sync " + contexts.length);
+        console.log(contexts[1].url);
         callback(contexts);
     });
 }

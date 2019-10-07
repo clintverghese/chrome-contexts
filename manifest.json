@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
+  "name": "Chrome Contexts",
   "version": "1.0",
-  "description": "Build an Extension!",
+  "description": "A simple chrome extension that allows you save multiple tab groups, essentially allowing you to organize tab groups.",
   "permissions": ["storage", "tabs"],
   "background": {
     "scripts": ["background.js"],

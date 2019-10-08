@@ -1,5 +1,13 @@
 import * as tabHelper from "./tab-helper.js";
 
+export function getPercentageOfSyncStorageUsed(callback)
+{
+    chrome.storage.sync.getBytesInUse(null, function(value){
+        console.log((value*100/chrome.storage.sync.QUOTA_BYTES).toFixed(2));
+        callback((value*100/chrome.storage.sync.QUOTA_BYTES).toFixed(2));
+    })
+}
+
 export function getSavedContextsFromSync(callback)
 {
     var contexts;

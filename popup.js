@@ -3,6 +3,7 @@ import * as tabHelper from "./tab-helper.js";
 
 let saveContext = document.getElementById('save-context');
 updateSavedContexts();
+updateStorageArea();
 
 saveContext.onclick = function(element) {
     let contextName = document.getElementById('context-name').value;
@@ -10,7 +11,10 @@ saveContext.onclick = function(element) {
     tabHelper.getTabsFromCurrentWindow(function(strippedTabs){
         console.log("getTabsFromCurrentWindow callback");
         console.log(strippedTabs);
-        syncHelper.updateContextToSync(contextName, strippedTabs, updateSavedContexts);
+        syncHelper.updateContextToSync(contextName, strippedTabs, function(){
+            updateSavedContexts();
+            updateStorageArea();
+        });
     })
 
     // chrome.tabs.query({currentWindow: true}, function (tabs){
@@ -38,5 +42,13 @@ function updateSavedContexts()
             li.addEventListener("click", syncHelper.loadContext);
             ul.appendChild(li);
         }
+    });
+}
+
+function updateStorageArea()
+{
+    var div = document.getElementById("storage-used");
+    syncHelper.getPercentageOfSyncStorageUsed(function(value){
+        div.innerText = value + "% of sync storage used";
     });
 }

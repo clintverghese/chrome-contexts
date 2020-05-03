@@ -30,6 +30,16 @@ export function updateContextToSync(contextName, strippedTabs, callback)
     });
 }
 
+export function removeContextFromSync(contextName, callback)
+{
+    console.log("entered sync-helper.removeContextFromSync");
+    console.log(contextName);
+    chrome.storage.sync.remove(contextName, function() {
+        console.log('removed context ' + contextName);
+        callback();
+    });
+}
+
 export function loadContext(event)
 {
     console.log("entered click of button ");

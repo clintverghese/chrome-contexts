@@ -36,11 +36,28 @@ function updateSavedContexts()
         var ul = document.getElementById("dynamic-list");
         ul.innerHTML = "";
         for(var i=0; i<savedContexts.length; i++) {
+            console.log("looped at +" + savedContexts[i]);
             var li = document.createElement("li");
-            li.setAttribute('id',savedContexts[i]);
-            li.appendChild(document.createTextNode(savedContexts[i]));
+            li.setAttribute('id', savedContexts[i]);
+            li.innerHTML = savedContexts[i];
+            // li.appendChild(document.createTextNode(savedContexts[i] + '<span class="delete">x</span>'));
             li.addEventListener("click", syncHelper.loadContext);
             ul.appendChild(li);
+
+            var del = document.createElement("span");
+            del.setAttribute('class', "delete");
+            del.innerHTML = 'x';
+            const n = i;
+            del.addEventListener("click", function(e) {
+                console.log("entered +" + savedContexts[n]);
+                console.log("index = " + n);
+                e.stopPropagation();
+                syncHelper.removeContextFromSync(savedContexts[n], function(){
+                    updateSavedContexts();
+                    updateStorageArea();
+                    });
+                });
+            li.appendChild(del);
         }
     });
 }
